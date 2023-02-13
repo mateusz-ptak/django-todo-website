@@ -1,0 +1,33 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="row mb-3">
+  <h1>Todos:</h1>
+</div>
+{% if todos %}
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4">
+  {% for todo in todos %}
+  <div class="card col p-1">
+    <div class="card-body">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">User: <b>{{todo.name}}</b></li>
+        <li class="list-group-item">Todo: <b>{{todo.message}}</b></li>
+        <li class="list-group-item">Deadline: <b>{{todo.deadline}}</b></li>
+      </ul>
+    </div>
+    <div class="card-body d-flex justify-content-evenly">
+      <a href="{% url 'edit' pk=todo.pk %}" class="btn btn-primary">Edit</a>
+      <a href="{% url 'delete' pk=todo.pk %}" class="btn btn-success">Done</a>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<div class="alert alert-warning fs-3" role="alert">
+  <h4 class="alert-heading fs-2">Ooops!</h4>
+  <p>Looks like the list is empty.</p>
+  <hr />
+  <p class="mb-0">
+    <a class="link-secondary" href="/add">Click here to add a new todo.</a>
+  </p>
+</div>
+{% endif %} {% endblock %}
